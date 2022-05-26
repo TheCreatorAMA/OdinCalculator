@@ -1,12 +1,54 @@
+/* 
+To practice using variables. Defining them here in the pseudo-class root
+allows them to be accessed gloobally. 
+*/
+
+:root {
+  --backgorund: #f6f6f6;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
-  display: flex;
+  width: 400px;
+  border: 1px solid red;
 }
 
 .calc-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  /* prettier-ignore */
+  grid-template-areas: 
+  "screen"
+  "button"
 }
 
 .screen {
+  grid-area: screen;
+  width: 350px;
+  height: 100px;
 }
 
 .button-grid {
+  grid-area: button;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  grid-template-areas:
+    'clear pos-neg percent divide'
+    'seven eight nine multiply'
+    'four five six minus'
+    'one two three plus'
+    'zero zero decimal equal';
+}
+
+.num-button {
+  height: 75px;
+  border: none;
+  border-radius: 25px;
+  margin: 2px;
 }
