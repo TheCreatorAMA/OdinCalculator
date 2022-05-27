@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Odin Calculator</title>
-    <script src="./scripts.js"></script>
+    <script src="./scripts.js" defer></script>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -16,25 +16,25 @@
           <div class="display-result">2</div>
         </div>
         <div class="button-grid">
-          <button class="num-button" style="grid-area: clear">A/C</button>
-          <button class="num-button" style="grid-area: pos-neg">±</button>
-          <button class="num-button" style="grid-area: percent">%</button>
-          <button class="num-button" style="grid-area: divide">÷</button>
-          <button class="num-button" style="grid-area: seven">7</button>
-          <button class="num-button" style="grid-area: eight">8</button>
-          <button class="num-button" style="grid-area: nine">9</button>
-          <button class="num-button" style="grid-area: multiply">×</button>
-          <button class="num-button" style="grid-area: four">4</button>
-          <button class="num-button" style="grid-area: five">5</button>
-          <button class="num-button" style="grid-area: six">6</button>
-          <button class="num-button" style="grid-area: minus">-</button>
-          <button class="num-button" style="grid-area: one">1</button>
-          <button class="num-button" style="grid-area: two">2</button>
-          <button class="num-button" style="grid-area: three">3</button>
-          <button class="num-button" style="grid-area: plus">+</button>
-          <button class="num-button" style="grid-area: zero">0</button>
-          <button class="num-button" style="grid-area: decimal">.</button>
-          <button class="num-button" style="grid-area: equal">=</button>
+          <button class="num-button" style="grid-area: clear" data-operator>A/C</button>
+          <button class="num-button" style="grid-area: pos-neg" data-operator>±</button>
+          <button class="num-button" style="grid-area: percent" data-operator>%</button>
+          <button class="num-button" style="grid-area: divide" data-operator>÷</button>
+          <button class="num-button" style="grid-area: seven" data-number>7</button>
+          <button class="num-button" style="grid-area: eight" data-number>8</button>
+          <button class="num-button" style="grid-area: nine" data-number>9</button>
+          <button class="num-button" style="grid-area: multiply" data-operator>×</button>
+          <button class="num-button" style="grid-area: four" data-number>4</button>
+          <button class="num-button" style="grid-area: five" data-number>5</button>
+          <button class="num-button" style="grid-area: six" data-number>6</button>
+          <button class="num-button" style="grid-area: minus" data-operator>-</button>
+          <button class="num-button" style="grid-area: one" data-number>1</button>
+          <button class="num-button" style="grid-area: two" data-number>2</button>
+          <button class="num-button" style="grid-area: three" data-number>3</button>
+          <button class="num-button" style="grid-area: plus" data-operator>+</button>
+          <button class="num-button" style="grid-area: zero" data-number>0</button>
+          <button class="num-button" style="grid-area: decimal" data-operator>.</button>
+          <button class="num-button" style="grid-area: equal" data-operator>=</button>
         </div>
       </div>
     </div>
