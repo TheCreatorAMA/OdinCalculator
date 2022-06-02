@@ -8,12 +8,11 @@ displayEquation.textContent = '';
 let firstOperand = '';
 let secondOperand = '';
 let operation = null;
-let firstInput = true;
 let result = null;
 
 numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    if (displayResult.textContent == 'READY') displayResult.textContent = '';
+    if (displayResult.textContent == 'READY' || displayResult.textContent == 'Naughty Naughty') displayResult.textContent = '';
     if (firstOperand === '') {
       displayResult.textContent += button.textContent;
     } else if (firstOperand == displayResult.textContent) {
@@ -34,6 +33,10 @@ operatorButtons.forEach((button) => {
       case '±':
         if (!isNaN(displayResult.textContent)) {
           displayResult.textContent = Number(displayResult.textContent) * -1;
+
+          if (result) {
+            result *= -1;
+          }
         }
         break;
       case '%':
@@ -53,16 +56,15 @@ function clearMemory() {
   firstOperand = '';
   secondOperand = '';
   operation = null;
-  firstInput = true;
   result = null;
 }
 
 function operate(input) {
-  if (firstOperand === '') {
+  if (firstOperand === '' && input !== '=') {
     firstOperand = +displayResult.textContent;
     operation = convertOperation(input);
     updateDisplay(input);
-  } else {
+  } else if (firstOperand !== '') {
     secondOperand = +displayResult.textContent;
     solveEquation();
     firstOperand = result;
@@ -99,7 +101,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  return a / b;
+  if (b === 0) {
+    return 'Naughty Naughty';
+  } else {
+    return a / b;
+  }
 }
 
 function solveEquation() {
@@ -116,6 +122,10 @@ function solveEquation() {
     case '+':
       result = add(firstOperand, secondOperand);
       break;
+  }
+
+  if (result !== 'Naughty Naughty' && String(result).length > 12) {
+    result = Number(result).toFixed(11);
   }
 }
 
