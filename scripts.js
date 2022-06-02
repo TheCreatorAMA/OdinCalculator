@@ -11,21 +11,17 @@ let operation = null;
 let firstInput = true;
 let result = null;
 
-// track numbers being pressed until operator is pressed
-// once operator is pressed record first number
-// wait for user to enter second number until another operator is pressed
-// if another operator is pressed do the steps below
-//    - evaluate equation
-//    - update display value with result and update equation display
-//    - clear the operator and secondOperand variables
-//    - store result in the firstOperand Variable
-// Now if another operator is pressed keep result and do math off of it. But if a number is pressed
-// reset the calculator
-
 numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
     if (displayResult.textContent == 'READY') displayResult.textContent = '';
-    displayResult.textContent += button.textContent;
+    if (firstOperand === '') {
+      displayResult.textContent += button.textContent;
+    } else if (firstOperand == displayResult.textContent) {
+      displayResult.textContent = '';
+      displayResult.textContent += button.textContent;
+    } else {
+      displayResult.textContent += button.textContent;
+    }
   });
 });
 
@@ -46,24 +42,46 @@ operatorButtons.forEach((button) => {
         }
         break;
       default:
-        if (firstInput) {
-          recordFirstInput(button.textContent);
-        } else {
-          recordSecondInput(button.textContent);
-        }
+        operate(button.textContent);
     }
   });
 });
 
-function updateDisplay(input) {
-  if (firstInput) {
-    displayEquation.textContent = '';
-    displayEquation.textContent += firstOperand + ' ' + input + ' ';
+function clearMemory() {
+  displayEquation.textContent = '';
+  displayResult.textContent = '';
+  firstOperand = '';
+  secondOperand = '';
+  operation = null;
+  firstInput = true;
+  result = null;
+}
+
+function operate(input) {
+  if (firstOperand === '') {
+    firstOperand = +displayResult.textContent;
+    operation = convertOperation(input);
+    updateDisplay(input);
   } else {
-    if (!result) {
-      displayEquation.textContent += secondOperand + ' = ' + result;
+    secondOperand = +displayResult.textContent;
+    solveEquation();
+    firstOperand = result;
+    updateDisplay(input);
+    secondOperand = '';
+    operation = convertOperation(input);
+  }
+}
+
+function updateDisplay(operator) {
+  if (secondOperand === '') {
+    displayEquation.textContent = firstOperand + ' ' + operator;
+  } else {
+    if (operator === '=') {
+      displayEquation.textContent += ' ' + secondOperand + ' = ';
+      displayResult.textContent = result;
     } else {
-      displayEquation.textContent = result + ' ' + input;
+      displayEquation.textContent = firstOperand + ' ' + operator;
+      displayResult.textContent = result;
     }
   }
 }
@@ -99,35 +117,6 @@ function solveEquation() {
       result = add(firstOperand, secondOperand);
       break;
   }
-
-  return result;
-}
-
-function clearMemory() {
-  displayEquation.textContent = '';
-  displayResult.textContent = '';
-  firstOperand = '';
-  secondOperand = '';
-  operation = null;
-  firstInput = true;
-  result = null;
-}
-
-function recordFirstInput(operatorInput) {
-  firstOperand = +displayResult.textContent;
-  updateDisplay(operatorInput);
-  operation = convertOperation(operatorInput);
-  displayResult.textContent = '';
-  firstInput = false;
-}
-
-function recordSecondInput(operatorInput) {
-  secondOperand = +displayResult.textContent;
-  solveEquation();
-  displayResult.textContent = result;
-  updateDisplay(operatorInput);
-  firstOperand = result;
-  operation = convertOperation(operatorInput);
 }
 
 function convertOperation(operator) {
@@ -150,7 +139,6 @@ function convertOperation(operator) {
       returnOperator = '=';
       break;
     default:
-      updateDisplay(operator);
       returnOperator = operator;
   }
 
