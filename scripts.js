@@ -3,6 +3,7 @@ const operatorButtons = document.querySelectorAll('[data-operator]');
 const displayEquation = document.querySelector('.display-equation');
 const displayResult = document.querySelector('.display-result');
 
+// Variables to track operands, display values and result.
 displayResult.textContent = 'READY';
 displayEquation.textContent = '';
 let firstOperand = '';
@@ -12,10 +13,14 @@ let result = null;
 
 numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
+    // Handles clearing the screen is text that are not numbers are there.
     if (displayResult.textContent == 'READY' || displayResult.textContent == 'Naughty Naughty') {
       displayResult.textContent = '';
       clearMemory();
     }
+
+    // This handles keeping the previous value on the screen when waiting for the second
+    // operand to be inputted
     if (firstOperand === '') {
       displayResult.textContent += button.textContent;
     } else if (firstOperand == displayResult.textContent) {
@@ -27,6 +32,7 @@ numberButtons.forEach((button) => {
   });
 });
 
+// Event listeners for operator buttons
 operatorButtons.forEach((button) => {
   button.addEventListener('click', () => {
     switch (button.textContent) {
@@ -58,6 +64,7 @@ operatorButtons.forEach((button) => {
   });
 });
 
+// Clearing memory
 function clearMemory() {
   displayEquation.textContent = '';
   displayResult.textContent = '';
@@ -67,6 +74,10 @@ function clearMemory() {
   result = null;
 }
 
+// Basically if the first operand has yet to be recorded log the first input
+// Then once second input has been recorded (after the user hits an operator button)
+// solve the current equation and make the result the first operand to let the user
+// do more calculations.
 function operate(input) {
   if (firstOperand === '' && input !== '=') {
     firstOperand = +displayResult.textContent;
@@ -82,6 +93,7 @@ function operate(input) {
   }
 }
 
+// Handles updating the equation display
 function updateDisplay(operator) {
   if (secondOperand === '') {
     displayEquation.textContent = firstOperand + ' ' + operator;
