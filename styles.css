@@ -27,8 +27,9 @@ body {
 
 .calc-body {
   width: 400px;
-  border: 1px solid gray;
-  border-radius: 3%;
+  border: 3px solid rgb(89, 89, 89);
+  background-color: gray;
+  border-radius: 20px;
   padding: 10px;
   display: grid;
   gap: 10px;
@@ -45,8 +46,9 @@ body {
   place-self: center;
   width: 350px;
   height: 200px;
-  border: 1px solid green;
-  border-radius: 3%;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: white;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
 }

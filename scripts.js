@@ -12,7 +12,10 @@ let result = null;
 
 numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    if (displayResult.textContent == 'READY' || displayResult.textContent == 'Naughty Naughty') displayResult.textContent = '';
+    if (displayResult.textContent == 'READY' || displayResult.textContent == 'Naughty Naughty') {
+      displayResult.textContent = '';
+      clearMemory();
+    }
     if (firstOperand === '') {
       displayResult.textContent += button.textContent;
     } else if (firstOperand == displayResult.textContent) {
@@ -42,6 +45,11 @@ operatorButtons.forEach((button) => {
       case '%':
         if (!isNaN(displayResult.textContent)) {
           displayResult.textContent = Number(displayResult.textContent) / 100;
+        }
+        break;
+      case '.':
+        if (checkForDecimal()) {
+          displayResult.textContent += '.';
         }
         break;
       default:
@@ -106,6 +114,17 @@ function divide(a, b) {
   } else {
     return a / b;
   }
+}
+
+function checkForDecimal() {
+  for (let i = 0; i < displayResult.textContent.length; i++) {
+    curChar = displayResult.textContent[i];
+    if (curChar === '.') {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function solveEquation() {
